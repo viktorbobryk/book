@@ -1,0 +1,26 @@
+
+body {
+    background: #000000;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 1.4em;
+    font-family: Verdana, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+    text-align: center;
+}
+p{
+    padding: 10px;
+}
+
+.apply{
+    margin-top: 10px;
+}
+.topnav{
+    background-color: #3A4B4C;
+    padding: 10px;
+}
+.content{
+    margin: 0px 50px 50px 50px;
+}
