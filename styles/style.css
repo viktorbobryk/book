@@ -1,8 +1,5 @@
 
 body {
-    background: #000000;
-    color: #ffffff;
-    font-size: 12px;
     line-height: 1.4em;
     font-family: Verdana, sans-serif;
 }
@@ -14,7 +11,8 @@ p{
     padding: 10px;
 }
 
-.apply{
+input
+#apply{
     margin-top: 10px;
 }
 .topnav{

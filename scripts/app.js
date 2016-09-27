@@ -1,42 +1,70 @@
 $(function () {
-    window.app = {};
 
-    app.bookView = Backbone.View.extend({
-        el: $('#wrapper'),
+    window.App = {
+        Models : {},
+        Views : {},
+        Collections : {}
+    };
+    window.template = function (id) {
+        return _.template( $(id).html() );
+    };
 
-        events: {
-            "click .set": "setStyles",
-            "click .reset": "resetStyles"
-        },
+    App.Models.BookStyle = Backbone.Model.extend({
+        defaults: {
+            fontSize: '14px',
+            color: '#000000',
+            background: '#ffffff'
+        }
+    });
+    App.Views.BookView = Backbone.View.extend({
+        tagName: 'style',
+        template: template(styleTemplate),
 
-        initialize: function () {
-            this.render();
-        },
 
         render: function () {
-            var template = _.template( $('#input-template').html() );
+            var template = this.template(this.model.toJSON());
             this.$el.html(template);
+            return this;
         },
 
-        setStyles: function () {
-            var color = $('#color').val();
-            var background = $('#background').val();
-            var fontSize = $('#fontSize').val() + 'px';
-            console.log(fontSize);
-            $('#wrapper').css({'color': color});
-            $('#wrapper').css({'background-color': background});
-            $('#wrapper').css({'font-size': fontSize});
-            console.log($('#wrapper').css('font-size'));
-        },
+    });
 
-        resetStyles: function () {
-            $('#wrapper').css({'color': '#000000'});
-            $('#wrapper').css({'background-color': '#ffffff'});
-            $('#wrapper').css({'font-size': '14px'});
-            }
-            });
+    var bookStyle = new App.Models.BookStyle();
+    var bookView = new App.Views.BookView({model: bookStyle});
+    $(document.body).append(bookView.render().el);
 
-    new app.bookView();
+
+    (function () {
+        $('#background').change(function () {
+            background = $('#background').val();
+            bookView.model.set({background: background});
+        });
+        $('#color').change(function () {
+            color = $('#color').val();
+            bookView.model.set({color : color});
+        });
+        $('#fontSize').change(function () {
+            fontSize = $('#fontSize').val() + 'px';
+            bookView.model.set({fontSize : fontSize});
+        });
+        $('#reset').on('click', function () {
+            bookView.model.set({color : '#000000'});
+            bookView.model.set({background: '#ffffff'});
+            bookView.model.set({fontSize : '14px'});
+            $(document.body).append(bookView.render().el);
+        });
+        $('#apply').on('click', function () {
+            bookView.model.set({color : color});
+            bookView.model.set({background: background});
+            bookView.model.set({fontSize : fontSize});
+            $(document.body).append(bookView.render().el);
+        });
+        var background;
+        var color;
+        var fontSize;
+    }());
 
 });
+
+
 
