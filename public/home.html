@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>book</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <nav>
+        <div class=" col-md-12 topnav">
+            <ul id="nav-mobile" class="nav nav-pills" >
+                <li><a  class="btn btn-info btn-lg" href="./index.html">Main</a></li>
+                <li><a class="btn btn-info btn-lg" href="#" id="login_out">Logout</a></li>
+                <li><a  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Settings</a></li>
+                <li><a class="btn btn-info btn-lg" href="#" id="reset">Reset settings</a></li>
+
+            </ul>
+        </div>
+    </nav>
+
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Виберіть налаштування</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-4 pull-left">
+                                <label for="color">Виберіть колір шрифта</label>
+                                <input id="color" type="color" class="form-control" value="#000000" />
+                                <label for="background">Виберіть колір тла</label>
+                                <input id="background" type="color" class="form-control" value="#ffffff" />
+                                <label for="fontSize">Виберіть розмір шрифта</label>
+                                <select id="fontSize" class="form-control">
+                                    <option value="8px">8</option>
+                                    <option value="9px">9</option>
+                                    <option value="10px">10</option>
+                                    <option value="11px">11</option>
+                                    <option value="12px">12</option>
+                                    <option value="13px">13</option>
+                                    <option value="14px">14</option>
+                                    <option value="15px">15</option>
+                                    <option value="16px">16</option>
+                                    <option value="17px">17</option>
+                                    <option value="18px">18</option>
+                                    <option value="19px">19</option>
+                                    <option value="20px">20</option>
+                                    <option value="21px">21</option>
+                                    <option value="22px">22</option>
+                                    <option value="23px">23</option>
+                                    <option value="24px">24</option>
+                                </select>
+                                <!--<button class="btn btn-info pull-left set " id="commit_changes">Застосувати</button>-->
+                                <a class="btn btn-info pull-left set " id="apply">Застосувати</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-info" data-dismiss="modal">Закрити діалогове вікно</button>-->
+                        <a class="btn btn-info pull-left set" data-dismiss="modal">Відміна</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/template" id="styleTemplate">
+    body  {
+    font-size: <%- fontSize %>;
+    color : <%- color %>;
+    background: <%- background %>;
+    }
+
+</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
+    <script type="text/javascript" src="scripts/home.js"></script>
+
+</body>
+</html>
