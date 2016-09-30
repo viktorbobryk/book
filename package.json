@@ -1,8 +1,9 @@
 {
-  "name" : "BackboneApp",
-  "version" : "0.0.1",
+  "name": "BackboneApp",
+  "version": "0.0.1",
   "dependencies": {
+    "body-parser": "^1.8.1",
     "express": "^4.0.0",
-    "body-parser": "^1.8.1"
+    "toastr": "^2.1.2"
   }
 }

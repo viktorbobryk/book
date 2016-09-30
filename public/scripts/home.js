@@ -8,7 +8,6 @@ $(function () {
         return _.template( $(id).html() );
     };
 
-
     App.Models.StyleModel = Backbone.Model.extend ({
         defaults : {
             'fontSize' : '14px',
@@ -33,9 +32,7 @@ $(function () {
     var testModel = new App.Models.StyleModel();
     var testView = new App.Views.StyleView({model : testModel});
 
-
     $(document.body).append(testView.render().el);
-
 
     $('#apply').on('click', function () {
         var fontSize = $( "#fontSize option:selected" ).val();
@@ -65,7 +62,7 @@ $(function () {
                 background:settings.background
             }
         }).done(function (data) {
-            console.log('Налаштування змінено !');
+            toastr.info('Налаштування змінено !');
         });
     });
 
@@ -97,7 +94,7 @@ $(function () {
                 background:settings.background
             }
         }).done(function (data) {
-            console.log('Налаштування скинуто !');
+            toastr.info('Налаштування скинуто !');
         });
     });
 
@@ -114,13 +111,12 @@ $(function () {
                 sessionStorage.removeItem('id');
                 window.location.href = 'index.html';
             }
-            {
+             {
                 sessionStorage.removeItem('token');
                 sessionStorage.removeItem('id');
                 window.location.href = 'index.html';
             }
         });
     });
-
 
 });

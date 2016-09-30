@@ -5,12 +5,11 @@ $(document).ready(function(){
         $('#home').css('display','inline-block');
     }
     else {
-        $('#reg_btn').css('display','none');
-        $('#home').css('display','inline-block');
+      //  $('#home').css('display','inline-block');
         $('#reg_btn').css('display','inline-block');
-        $('#home').css('display','none');
+       // $('#home').css('display','none');
     }
-    console.log('token - ' + sessionStorage.getItem('token'));
+
 });
 
 $(function () {
@@ -43,10 +42,11 @@ $(function () {
                     $('#reg_btn').hide();
                     $('#home').css('display','inline-block');
                     loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id'));
-                    console.log('you are logged')
+                    console.log('you are logged');
+                    toastr.info('Ви успішно зайшли на свою сторінку');
                 }
                 else {
-                    console.log('you are not logged')
+                    toastr.error('Логін або пароль не вірний');
                 }
             });
         };
@@ -65,7 +65,7 @@ $(function () {
                     email:email
                 }
             }).done(function (data) {
-                console.log('you are regged')
+                toastr.info('Ви успішно зареєструвались');
             });
         };
 
@@ -88,8 +88,6 @@ $(function () {
         };
 
         $('#reload').on('click', loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id')));
-
-
 
 
         App.Models.StyleModel = Backbone.Model.extend ({

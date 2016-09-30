@@ -1,5 +1,3 @@
-
-
 'use strict'
 var http = require('http'), express = require('express');
 var bodyParser = require("body-parser");
@@ -16,10 +14,6 @@ app.use(express.static('public'));
 app.get('/getSettings', function (req, res) {
     res.send(bookApp.getSettings());
 });
-
-// app.get('/cabinet', function (req, res) {
-//     res.send(backboneApp.cabinet());
-// });
 
 app.post('/registration', function (req, res) {
     res.send(bookApp.registration(req.body)) ;

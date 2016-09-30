@@ -46,7 +46,6 @@ module.exports = (function () {
         return result;
     };
 
-
     var registration = function (data) {
 
         var id = users.length + 1;
@@ -72,7 +71,6 @@ module.exports = (function () {
             };
         }
     };
-
 
     var generateToken = function () {
         var letter = "jhtku;uvuyp8ygfvdw35xcjvi987b,kbmhhgfhgjk";
@@ -170,8 +168,6 @@ module.exports = (function () {
         }
         return false;
     };
-
-
 
     return {
         getSettings:getSettings,

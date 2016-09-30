@@ -5,18 +5,20 @@
     <title>book</title>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
 
     <nav>
         <div class=" col-md-12 topnav">
             <ul id="nav-mobile" class="nav nav-pills" >
-                <li><a  class="btn btn-info btn-lg" href="./index.html">Main</a></li>
-                <li><a class="btn btn-info btn-lg" href="#" id="login_out">Logout</a></li>
-                <li><a  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Settings</a></li>
-                <li><a class="btn btn-info btn-lg" href="#" id="reset">Reset settings</a></li>
+                <li><a  class="btn btn-info btn-lg" href="./index.html">Головна</a></li>
+                <li><a class="btn btn-info btn-lg" href="#" id="login_out">Вийти</a></li>
+                <li><a  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Налаштування</a></li>
+                <li><a class="btn btn-info btn-lg" href="#" id="reset">Скинути налаштування</a></li>
 
             </ul>
         </div>
@@ -40,8 +42,6 @@
                                 <input id="background" type="color" class="form-control" value="#ffffff" />
                                 <label for="fontSize">Виберіть розмір шрифта</label>
                                 <select id="fontSize" class="form-control">
-                                    <option value="8px">8</option>
-                                    <option value="9px">9</option>
                                     <option value="10px">10</option>
                                     <option value="11px">11</option>
                                     <option value="12px">12</option>
@@ -58,14 +58,12 @@
                                     <option value="23px">23</option>
                                     <option value="24px">24</option>
                                 </select>
-                                <!--<button class="btn btn-info pull-left set " id="commit_changes">Застосувати</button>-->
                                 <a class="btn btn-info pull-left set " id="apply">Застосувати</a>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <!--<button type="button" class="btn btn-info" data-dismiss="modal">Закрити діалогове вікно</button>-->
-                        <a class="btn btn-info pull-left set" data-dismiss="modal">Відміна</a>
+                        <a class="btn btn-info pull-left set" data-dismiss="modal">Закрити вікно</a>
                     </div>
                 </div>
             </div>

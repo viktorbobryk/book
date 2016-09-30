@@ -4,6 +4,10 @@ body {
     font-family: Verdana, sans-serif;
 }
 
+#home, #reg_btn, #reload {
+    display: none;
+}
+
 h1, h2, h3, h4, h5, h6{
     text-align: center;
 }
@@ -20,10 +24,4 @@ p{
 }
 .content{
     margin: 0px 50px 50px 50px;
-}
-#cabinet, #registration_btn, #reload {
-    display: none;
-}
-label {
-    float: right;
 }
