@@ -14,7 +14,7 @@ $(function () {
             'color' : '#000000',
             'background' : '#ffffff'
         },
-        urlRoot : '/getSettings'
+        urlRoot : '/settings'
     });
 
     App.Views.StyleView = Backbone.View.extend ({
@@ -23,8 +23,7 @@ $(function () {
         template : template(styleTemplate),
 
         render : function (){
-            var template = this.template(this.model.toJSON());
-            this.$el.html( template );
+            this.$el.html( this.template(this.model.toJSON()));
             return this;
         }
     });
@@ -109,14 +108,9 @@ $(function () {
             if (data) {
                 sessionStorage.removeItem('token');
                 sessionStorage.removeItem('id');
-                window.location.href = 'index.html';
-            }
-             {
-                sessionStorage.removeItem('token');
-                sessionStorage.removeItem('id');
-                window.location.href = 'index.html';
             }
         });
+        window.location.href = 'index.html';
     });
 
 });

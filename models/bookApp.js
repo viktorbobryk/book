@@ -62,12 +62,11 @@ module.exports = (function () {
             users = readData(userDataPath);
             return {
                 succsess:true,
-                message:'Registration successful !'
+                // message:'Registration successful !'
             };
         } catch(e) {
             return {
                 succsess:false,
-                message:'Registration unsuccessful !'
             };
         }
     };
@@ -82,7 +81,6 @@ module.exports = (function () {
     };
 
     var login = function (data) {
-
         for(var i = 0; i < users.length; ++i) {
             var result = {};
             if (data.login == users[i].login && data.pw == users[i].password) {
@@ -139,7 +137,6 @@ module.exports = (function () {
                         dataArr = readData(setingsPath);
                         return {
                             success: true,
-                            message: 'Data successfully changed'
                         };
                     }
                 }
@@ -149,13 +146,11 @@ module.exports = (function () {
 
                 return {
                     success: true,
-                    message: 'Data successfully added'
                 };
             }
         }
         return {
             success: false,
-            message: 'Data didn\'t added'
         };
     };
 

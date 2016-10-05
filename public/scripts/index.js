@@ -5,15 +5,14 @@ $(document).ready(function(){
         $('#home').css('display','inline-block');
     }
     else {
-      //  $('#home').css('display','inline-block');
         $('#reg_btn').css('display','inline-block');
-       // $('#home').css('display','none');
     }
 
 });
 
-$(function () {
-    window.backbone = (function () {
+
+$(document).ready(function () {
+    window.bookApp = (function () {
 
         window.App = {
             Models : {},
@@ -24,7 +23,7 @@ $(function () {
             return _.template( $(id).html() );
         };
 
-
+     
         var user = function () {
 
             var user_login = $('#login_user').val();
@@ -42,7 +41,6 @@ $(function () {
                     $('#reg_btn').hide();
                     $('#home').css('display','inline-block');
                     loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id'));
-                    console.log('you are logged');
                     toastr.info('Ви успішно зайшли на свою сторінку');
                 }
                 else {
@@ -52,21 +50,20 @@ $(function () {
         };
 
         var registration = function () {
+                var login = $('#login').val();
+                var password = $('#password').val();
+                var email = $('#email').val();
 
-            var login = $('#login').val();
-            var password = $('#password').val();
-            var email = $('#email').val();
-
-            $.ajax('/registration', {
-                method: 'POST',
-                data: {
-                    login:login,
-                    password:password,
-                    email:email
-                }
-            }).done(function (data) {
-                toastr.info('Ви успішно зареєструвались');
-            });
+                $.ajax('/registration', {
+                    method: 'POST',
+                    data: {
+                        login: login,
+                        password: password,
+                        email: email
+                    }
+                }).done(function (data) {
+                    toastr.info('Ви успішно зареєструвались');
+                });
         };
 
         window.loadSetings = function (token, id) {
@@ -82,13 +79,13 @@ $(function () {
                     'color' : data.color,
                     'background' : data.background
                 });
-                var testView = new App.Views.StyleView({model : userModel});
-                $(document.body).append(testView.render().el);
+                var styleView = new App.Views.StyleView({model : userModel});
+                $(document.body).append(styleView.render().el);
             });
         };
 
         $('#reload').on('click', loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id')));
-
+        
 
         App.Models.StyleModel = Backbone.Model.extend ({
             defaults : {

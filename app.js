@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 
-app.get('/getSettings', function (req, res) {
+app.get('/settings', function (req, res) {
     res.send(bookApp.getSettings());
 });
 
@@ -33,10 +33,6 @@ app.post('/postData', function (req, res) {
 
 app.post('/logout', function (req, res) {
     res.send(bookApp.logout(req.body)) ;
-});
-
-app.post('/post2', function (req, res) {
-    res.send(bookApp.postPost(req.body)) ;
 });
 
 app.listen(3000, function () {

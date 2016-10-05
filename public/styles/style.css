@@ -25,3 +25,9 @@ p{
 .content{
     margin: 0px 50px 50px 50px;
 }
+.ok{
+    border: 1px solid green;
+}
+.error{
+    border: 1px solid red;
+}
