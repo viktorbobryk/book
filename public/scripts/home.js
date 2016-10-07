@@ -33,7 +33,24 @@ $(function () {
 
     $(document.body).append(testView.render().el);
 
+    $('#addBook').on('click',function (){
+        console.log('addBook works');
+            var name = $('#name').val();
+            var text = $('#text').val();
+            console.log('name = ' + name);
+            console.log('text = ' + text);
+            $.ajax('/saveBook', {
+                method: 'post',
+                data: {
+                    name: name,
+                    text: text
+                }
+            }).done(function (data) {
+                toastr.info('Книгу збережено');
+            });
+        });
     $('#apply').on('click', function () {
+        console.log('apply works');
         var fontSize = $( "#fontSize option:selected" ).val();
         testView.model.set({fontSize : fontSize});
         $(document.body).append(testView.render().el);
@@ -45,7 +62,6 @@ $(function () {
         var color = $('#color').val();
         testView.model.set({color : color});
         $(document.body).append(testView.render().el);
-        console.log(testModel.toJSON());
 
         var token = sessionStorage.getItem('token');
         var id = sessionStorage.getItem('user_id');

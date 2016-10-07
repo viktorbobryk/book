@@ -22,9 +22,12 @@ $(document).ready(function () {
         window.template = function (id) {
             return _.template( $(id).html() );
         };
+        // console.log('I found it');
+        // var el = window.document.getElementById('username').innerHTML;
+        // console.log( el );
+        
+         var user = function () {
 
-     
-        var user = function () {
 
             var user_login = $('#login_user').val();
             var user_pw = $('#pw_user').val();
@@ -36,12 +39,14 @@ $(document).ready(function () {
                 }
             }).done(function (data) {
                 if (data.success) {
+                    console.log(data.login);
                     sessionStorage.setItem('token', data.userToken);
                     sessionStorage.setItem('user_id', data.id);
                     $('#reg_btn').hide();
                     $('#home').css('display','inline-block');
                     loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id'));
                     toastr.info('Ви успішно зайшли на свою сторінку');
+
                 }
                 else {
                     toastr.error('Логін або пароль не вірний');
@@ -65,6 +70,7 @@ $(document).ready(function () {
                     toastr.info('Ви успішно зареєструвались');
                 });
         };
+        
 
         window.loadSetings = function (token, id) {
             $.ajax('/getData', {

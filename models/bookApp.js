@@ -32,8 +32,10 @@ module.exports = (function () {
 
     var setingsPath = './data/settings.json';
     var userDataPath = './data/users.json';
+    var booksPath = './data/books.json';
     var dataArr = readData(setingsPath);
     var users = readData(userDataPath);
+    var books = readData(booksPath);
 
     var getSettings = function (id) {
         var result = {};
@@ -46,6 +48,29 @@ module.exports = (function () {
         return result;
     };
 
+    var saveBook = function (data) {
+        console.log('bookApp/saveBook');
+        var id = books.length + 1;
+        var recordData = {
+            id: id,
+            name:data.name,
+            text:data.text
+        };
+
+        try {
+            books.push(recordData);
+            writeData(books, booksPath);
+            books = readData(booksPath);
+            return {
+                succsess:true
+            };
+        } catch(e) {
+            return {
+                succsess:false
+            };
+        }
+    };
+    
     var registration = function (data) {
 
         var id = users.length + 1;
@@ -62,7 +87,6 @@ module.exports = (function () {
             users = readData(userDataPath);
             return {
                 succsess:true,
-                // message:'Registration successful !'
             };
         } catch(e) {
             return {
@@ -83,6 +107,7 @@ module.exports = (function () {
     var login = function (data) {
         for(var i = 0; i < users.length; ++i) {
             var result = {};
+            var login = data.login;
             if (data.login == users[i].login && data.pw == users[i].password) {
                 var token = generateToken();
                 session.push({
@@ -92,9 +117,9 @@ module.exports = (function () {
                 result = {
                     success : true,
                     userToken : token,
-                    id : users[i].id
+                    id : users[i].id,
+                    login : login
                 };
-
                 return result;
             } else {
                 result = {
@@ -170,7 +195,8 @@ module.exports = (function () {
         login:login,
         getData:getData,
         postData:postData,
-        logout:logout
+        logout:logout,
+        saveBook:saveBook
 
     }
 })();
