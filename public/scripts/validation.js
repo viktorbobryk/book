@@ -10,7 +10,7 @@ $(document).ready(function(){
             }
             else{
                 $('#e_valid').text('Не коректний email');
-                $('#submit').setAttribute('disabled', 'disabled');
+                $('#submit').attr('disabled', 'true');
                 email.addClass('ok');
                 return false;
             }
@@ -23,32 +23,32 @@ $(document).ready(function(){
         }
     });
 
-    var login = $('#login');
-    login.blur(function(){
-        if(login.val() == ''){
-            $('#l_valid').text('Заповніть поле "Логін" !');
-            login.addClass('error');
-            $('#submit').attr('disabled', true);
-            return false;
-        }
-        else{
-            $('#submit').attr('disabled', false);
-            login.removeClass('error').addClass('ok');
-        }
-    });
-
-    var password = $('#password');
-    password.blur(function(){
-        if(password.val() == ''){
-            $('#p_valid').text('Заповніть поле "Пароль" !');
-            password.addClass('error');
-            $('#submit').attr('disabled', true);
-            return false;
-        }
-        else{
-            $('#submit').attr('disabled', false);
-            password.removeClass('error').addClass('ok');
-        }
-    })
+    // var login = $('#login');
+    // login.blur(function(){
+    //     if(login.val() == ''){
+    //         $('#l_valid').text('Заповніть поле "Логін" !');
+    //         login.addClass('error');
+    //         $('#submit').attr('disabled', true);
+    //         return false;
+    //     }
+    //     else{
+    //         $('#submit').attr('disabled', false);
+    //         login.removeClass('error').addClass('ok');
+    //     }
+    // });
+    //
+    // var password = $('#password');
+    // password.blur(function(){
+    //     if(password.val() == ''){
+    //         $('#p_valid').text('Заповніть поле "Пароль" !');
+    //         password.addClass('error');
+    //         $('#submit').attr('disabled', true);
+    //         return false;
+    //     }
+    //     else{
+    //         $('#submit').attr('disabled', false);
+    //         password.removeClass('error').addClass('ok');
+    //     }
+    // });
 
 });
