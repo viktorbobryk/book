@@ -6,7 +6,7 @@ $(document).ready(function(){
             if(email.val().search(pattern) == 0){
                 $('#e_valid').text('Коректний email');
                 $('#submit').attr('disabled', false);
-                mail.removeClass('error').addClass('ok');
+                email.removeClass('error').addClass('ok');
             }
             else{
                 $('#e_valid').text('Не коректний email');

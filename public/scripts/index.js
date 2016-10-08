@@ -22,15 +22,16 @@ $(document).ready(function () {
         window.template = function (id) {
             return _.template( $(id).html() );
         };
+
         // console.log('I found it');
-        // var el = window.document.getElementById('username').innerHTML;
+        // var el = window.document.getElementById('us').innerHTML;
         // console.log( el );
-        
+
          var user = function () {
-
-
             var user_login = $('#login_user').val();
             var user_pw = $('#pw_user').val();
+            // var user_name = window.document.getElementById('us').innerHTML;
+            // console.log(user_name + 'jjj');
             $.ajax('/login', {
                 method: 'POST',
                 data: {
