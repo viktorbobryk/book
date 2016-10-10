@@ -11,7 +11,7 @@ $(document).ready(function(){
 });
 
 
-$(document).ready(function () {
+$(function () {
     window.bookApp = (function () {
 
         window.App = {
@@ -23,15 +23,9 @@ $(document).ready(function () {
             return _.template( $(id).html() );
         };
 
-        // console.log('I found it');
-        // var el = window.document.getElementById('us').innerHTML;
-        // console.log( el );
-
-         var user = function () {
+         var login = function () {
             var user_login = $('#login_user').val();
             var user_pw = $('#pw_user').val();
-            // var user_name = window.document.getElementById('us').innerHTML;
-            // console.log(user_name + 'jjj');
             $.ajax('/login', {
                 method: 'POST',
                 data: {
@@ -45,6 +39,8 @@ $(document).ready(function () {
                     sessionStorage.setItem('user_id', data.id);
                     $('#reg_btn').hide();
                     $('#home').css('display','inline-block');
+                   var user =  $('#user_login_here').html();
+                    console.log(user);
                     loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id'));
                     toastr.info('Ви успішно зайшли на свою сторінку');
 
@@ -115,9 +111,9 @@ $(document).ready(function () {
         });
 
         return {
-            user:user,
-            registration:registration,
-            loadSetings:loadSetings
+            login: login,
+            registration: registration,
+            loadSetings: loadSetings
         }
     })();
 });
