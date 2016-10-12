@@ -1,3 +1,4 @@
 /node_modules
-/logs
 /.idea
+/dist
+/src/back_end/logs/
