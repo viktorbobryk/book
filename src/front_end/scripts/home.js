@@ -1,9 +1,10 @@
-$(function () {
+$(document).ready(function () {
+    $("#user_login_here").text(sessionStorage.getItem('login'));
     window.App = {
         Models : {},
-        Views : {}
+        Views : {},
+        Collections: {}
     };
-
     window.template = function (id) {
         return _.template( $(id).html() );
     };
@@ -20,9 +21,9 @@ $(function () {
     App.Views.StyleView = Backbone.View.extend ({
         tagName : 'style',
 
-        template : template(styleTemplate),
+        template: template(styleTemplate),
 
-        render : function (){
+        render: function (){
             this.$el.html( this.template(this.model.toJSON()));
             return this;
         }
@@ -49,8 +50,11 @@ $(function () {
                 toastr.info('Книгу збережено');
             });
         });
-    $('#apply').on('click', function () {
+
+
+        $('#apply').on('click', function () {
         console.log('apply works');
+        console.log('sessionStorage - ' + sessionStorage.getItem('login'));
         var fontSize = $( "#fontSize option:selected" ).val();
         testView.model.set({fontSize : fontSize});
         $(document.body).append(testView.render().el);
@@ -126,7 +130,9 @@ $(function () {
                 sessionStorage.removeItem('id');
             }
         });
+        $("#user_login_here").text(sessionStorage.getItem('login'));
         window.location.href = 'index.html';
+
     });
 
 });

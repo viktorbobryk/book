@@ -34,16 +34,15 @@ $(function () {
                 }
             }).done(function (data) {
                 if (data.success) {
-                    console.log(data.login);
+                    //console.log('users name - ' + data.login);
+                    sessionStorage.setItem('login', data.login);
                     sessionStorage.setItem('token', data.userToken);
                     sessionStorage.setItem('user_id', data.id);
                     $('#reg_btn').hide();
                     $('#home').css('display','inline-block');
-                   var user =  $('#user_login_here').html();
-                    console.log(user);
                     loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id'));
                     toastr.info('Ви успішно зайшли на свою сторінку');
-
+                    //console.log('sessionStorage - ' + sessionStorage.getItem('login'));
                 }
                 else {
                     toastr.error('Логін або пароль не вірний');

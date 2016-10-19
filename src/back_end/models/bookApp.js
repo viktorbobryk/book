@@ -37,6 +37,10 @@ module.exports = (function () {
     var users = readData(userDataPath);
     var books = readData(booksPath);
 
+    var list = function () {
+        return books;
+    };
+    console.log(list());
     var getSettings = function (id) {
         var result = {};
         for (var i = 0; i < dataArr.length; i++) {
@@ -48,28 +52,6 @@ module.exports = (function () {
         return result;
     };
 
-    var saveBook = function (data) {
-        console.log('bookApp/saveBook');
-        var id = books.length + 1;
-        var recordData = {
-            id: id,
-            name:data.name,
-            text:data.text
-        };
-
-        try {
-            books.push(recordData);
-            writeData(books, booksPath);
-            books = readData(booksPath);
-            return {
-                succsess:true
-            };
-        } catch(e) {
-            return {
-                succsess:false
-            };
-        }
-    };
     
     var registration = function (data) {
 
@@ -189,6 +171,53 @@ module.exports = (function () {
         return false;
     };
 
+    var saveBook = function (data) {
+        console.log('bookApp/saveBook');
+        var id = books.length + 1;
+        var recordData = {
+            id: id,
+            name:data.name,
+            text:data.text
+        };
+
+        try {
+            books.push(recordData);
+            writeData(books, booksPath);
+            books = readData(booksPath);
+            return {
+                succsess:true
+            };
+        } catch(e) {
+            return {
+                succsess:false
+            };
+        }
+    };
+
+    var searchBooks = function (id){
+        var userBooks = [];
+        for (var j = 0; j < books.length; j++) {
+            for (var i = 0; i < id.length; i++) {
+                if (books[j].id == id[i]) {
+                    userBooks.push(books[j].book);
+                }
+            }
+        }
+        return userBooks;
+    };
+
+    //
+    // var getBooks = function (userID) {
+    //     var userBooks = [];
+    //     for(var i = 0; i < users.length; ++i) {
+    //
+    //         if (users[i].id == userID ) {
+    //             userBooks = searchBooks(users[i].booksInStorage)
+    //         }
+    //     }
+    //     return userBooks;
+    // };
+
     return {
         getSettings:getSettings,
         registration:registration,
@@ -196,7 +225,7 @@ module.exports = (function () {
         getData:getData,
         postData:postData,
         logout:logout,
-        saveBook:saveBook
-
+        saveBook:saveBook,
+        list: list
     }
 })();

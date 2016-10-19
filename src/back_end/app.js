@@ -39,6 +39,10 @@ app.post('/saveBook', function (req, res) {
     res.send(bookApp.saveBook(req.body)) ;
 });
 
+app.post('/list', function (req, res) {
+    res.send(bookApp.list(req.body)) ;
+});
+
 app.listen(3000, function () {
     console.log('book is listening on port 3000!');
 });
