@@ -35,16 +35,16 @@ $(document).ready(function () {
     $(document.body).append(testView.render().el);
 
     $('#addBook').on('click',function (){
-        console.log('addBook works');
             var name = $('#name').val();
             var text = $('#text').val();
-            console.log('name = ' + name);
-            console.log('text = ' + text);
+            var userID = sessionStorage.getItem('user_id');
+        console.log("userID = " + userID)
             $.ajax('/saveBook', {
                 method: 'post',
                 data: {
                     name: name,
-                    text: text
+                    text: text,
+                    userID: userID
                 }
             }).done(function (data) {
                 toastr.info('Книгу збережено');

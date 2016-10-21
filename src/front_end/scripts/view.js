@@ -18,7 +18,7 @@ app.BooksView = Backbone.View.extend({
     },
 
     render: function () {
-        var template = _.template('<% collection.forEach( function (item) { %> <%= item.text %> </br></hr></br><hr></br><hr></br><hr> <% });%>');
+        var template = _.template('<% collection.forEach( function (item) { %> <%= item.text %> </br><hr></br><hr> <% });%>');
         console.log(this.booksCollection.toJSON());
         this.$el.append(template({collection: this.booksCollection.toJSON()}));
         return this;

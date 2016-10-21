@@ -36,16 +36,15 @@ module.exports = (function () {
     var dataArr = readData(setingsPath);
     var users = readData(userDataPath);
     var books = readData(booksPath);
-//------------------------------------------
+
     var list = function () {
         var userBooks = [];
         for(var i = 0; i < books.length; i++){
-            userBooks.push(books[i].text);
-            console.log(userBooks[i]);
+            userBooks.push(books[i]);
         }
         return userBooks;
     };
-//-------------------------------------------
+
     var getSettings = function (id) {
         var result = {};
         for (var i = 0; i < dataArr.length; i++) {
@@ -65,7 +64,8 @@ module.exports = (function () {
             id: id,
             login:data.login,
             password:data.password,
-            email:data.email
+            email:data.email,
+            userBooks: []
         };
 
         try {
@@ -73,11 +73,11 @@ module.exports = (function () {
             writeData(users, userDataPath);
             users = readData(userDataPath);
             return {
-                succsess:true
+                success:true
             };
         } catch(e) {
             return {
-                succsess:false
+                success:false
             };
         }
     };
@@ -182,19 +182,28 @@ module.exports = (function () {
         var recordData = {
             id: id,
             name: data.name,
-            text :data.text
+            text : data.text
         };
 
+        // for(var i = 0; i < users.length; ++i) {
+        //     console.log('users = ' + users[i].name);
+        //     // if (users[i].id == data.userID ) {
+        //     //     users[i].userBooks.push(id);
+        //     // }
+        // }
+
         try {
+
             books.push(recordData);
             writeData(books, booksPath);
             books = readData(booksPath);
+            // users = readData(userDataPath);
             return {
-                succsess:true
+                success:true
             };
         } catch(e) {
             return {
-                succsess:false
+                success:false
             };
         }
     };
