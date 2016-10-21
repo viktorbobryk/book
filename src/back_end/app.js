@@ -39,7 +39,7 @@ app.post('/saveBook', function (req, res) {
     res.send(bookApp.saveBook(req.body)) ;
 });
 
-app.post('/list', function (req, res) {
+app.get('/list', function (req, res) {
     res.send(bookApp.list(req.body)) ;
 });
 

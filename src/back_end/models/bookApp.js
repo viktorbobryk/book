@@ -36,11 +36,16 @@ module.exports = (function () {
     var dataArr = readData(setingsPath);
     var users = readData(userDataPath);
     var books = readData(booksPath);
-
+//------------------------------------------
     var list = function () {
-        return books;
+        var userBooks = [];
+        for(var i = 0; i < books.length; i++){
+            userBooks.push(books[i].text);
+            console.log(userBooks[i]);
+        }
+        return userBooks;
     };
-    console.log(list());
+//-------------------------------------------
     var getSettings = function (id) {
         var result = {};
         for (var i = 0; i < dataArr.length; i++) {
@@ -68,11 +73,11 @@ module.exports = (function () {
             writeData(users, userDataPath);
             users = readData(userDataPath);
             return {
-                succsess:true,
+                succsess:true
             };
         } catch(e) {
             return {
-                succsess:false,
+                succsess:false
             };
         }
     };
@@ -143,7 +148,7 @@ module.exports = (function () {
                         writeData(dataArr2, setingsPath);
                         dataArr = readData(setingsPath);
                         return {
-                            success: true,
+                            success: true
                         };
                     }
                 }
@@ -152,12 +157,12 @@ module.exports = (function () {
                 dataArr = readData(setingsPath);
 
                 return {
-                    success: true,
+                    success: true
                 };
             }
         }
         return {
-            success: false,
+            success: false
         };
     };
 
@@ -176,8 +181,8 @@ module.exports = (function () {
         var id = books.length + 1;
         var recordData = {
             id: id,
-            name:data.name,
-            text:data.text
+            name: data.name,
+            text :data.text
         };
 
         try {
@@ -193,26 +198,14 @@ module.exports = (function () {
             };
         }
     };
-
-    var searchBooks = function (id){
-        var userBooks = [];
-        for (var j = 0; j < books.length; j++) {
-            for (var i = 0; i < id.length; i++) {
-                if (books[j].id == id[i]) {
-                    userBooks.push(books[j].book);
-                }
-            }
-        }
-        return userBooks;
-    };
-
     //
-    // var getBooks = function (userID) {
+    // var searchBooks = function (id){
     //     var userBooks = [];
-    //     for(var i = 0; i < users.length; ++i) {
-    //
-    //         if (users[i].id == userID ) {
-    //             userBooks = searchBooks(users[i].booksInStorage)
+    //     for (var j = 0; j < books.length; j++) {
+    //         for (var i = 0; i < id.length; i++) {
+    //             if (books[j].id == id[i]) {
+    //                 userBooks.push(books[j].book);
+    //             }
     //         }
     //     }
     //     return userBooks;
