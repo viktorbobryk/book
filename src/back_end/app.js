@@ -35,12 +35,26 @@ app.post('/logout', function (req, res) {
     res.send(bookApp.logout(req.body)) ;
 });
 
+// app.post('/saveBook', function (req, res) {
+//     res.send(bookApp.saveBook(req.body)) ;
+// });
+
+// app.get('/list', function (req, res) {
+//     res.send(bookApp.list(req.body)) ;
+// });
 app.post('/saveBook', function (req, res) {
-    res.send(bookApp.saveBook(req.body)) ;
+
+    bookApp.checkUser(req, res, function () {
+        return bookApp.saveBook(req.body, req.headers.userid);
+    });
+    console.log('req.headers.userid saveBook = ' + req.headers.userid);
 });
 
-app.get('/list', function (req, res) {
-    res.send(bookApp.list(req.body)) ;
+app.get('/showBook/:id', function (req, res) {
+    bookApp.checkUser(req, res, function () {
+        return bookApp.showBooks(req.headers.userid);
+    });
+    console.log('req.headers.userid showBook = ' + req.headers.userid);
 });
 
 app.listen(3000, function () {
