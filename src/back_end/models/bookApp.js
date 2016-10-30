@@ -1,9 +1,10 @@
 var fs = require('fs');
 var logger = require('./../services/logger.js');
 
-module.exports = (function (){
-    var sessions = [];
+module.exports = (function () {
 
+    var session = [];
+    var val;
     var readData = function (path) {
         try {
             var result = fs.readFileSync(path, 'utf8');
@@ -32,22 +33,42 @@ module.exports = (function (){
     var setingsPath = './data/settings.json';
     var userDataPath = './data/users.json';
     var booksPath = './data/books.json';
-    var setings = readData(setingsPath);
+    var dataArr = readData(setingsPath);
     var users = readData(userDataPath);
     var books = readData(booksPath);
 
+    var currentUserID = function (data) {
+        for (var key in data) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
+                 val = data[key];
+            }
+        }
+        return val;
+    };
+
+    var list = function () {
+        var x = val;
+        var userBooks = [];
+        for(var i = 0; i < books.length; i++){
+            if(books[i].user_id === x) {
+                userBooks.push(books[i]);
+            }
+        }
+        return userBooks;
+    };
 
     var getSettings = function (id) {
         var result = {};
-        for (var i = 0; i < setings.length; i++) {
-            if (setings[i].userID == id) {
-                result = setings[i];
+        for (var i = 0; i < dataArr.length; i++) {
+            if (dataArr[i].userID == id) {
+                result = dataArr[i];
                 delete result.userID;
             }
         }
         return result;
     };
 
+    
     var registration = function (data) {
 
         var id = users.length + 1;
@@ -55,8 +76,7 @@ module.exports = (function (){
             id: id,
             login:data.login,
             password:data.password,
-            email:data.email,
-            usersBooks:[]
+            email:data.email
         };
 
         try {
@@ -64,11 +84,11 @@ module.exports = (function (){
             writeData(users, userDataPath);
             users = readData(userDataPath);
             return {
-                success:true
+                succsess:true
             };
         } catch(e) {
             return {
-                success:false
+                succsess:false
             };
         }
     };
@@ -88,10 +108,12 @@ module.exports = (function (){
             var login = data.login;
             if (data.login == users[i].login && data.pw == users[i].password) {
                 var token = generateToken();
-                sessions.push({
+                session.push({
                     userToken : token,
-                    userName : users[i].login
+                    userName : users[i].login,
+                    userID : users[i].id
                 });
+
                 result = {
                     success : true,
                     userToken : token,
@@ -109,43 +131,43 @@ module.exports = (function (){
     };
 
     var getData = function (data) {
-        for (var i = 0; i < sessions.length; i++) {
-            if (sessions[i].userToken == data.token) {
+        for (var i = 0; i < session.length; i++) {
+            if (session[i].userToken == data.token) {
                 return getSettings(data.id);
             }
         }
     };
 
     var postData = function (data) {
-        var settings2 = readData(setingsPath);
+        var dataArr2 = readData(setingsPath);
 
-        for (var i = 0; i < sessions.length; i++) {
-            if (sessions[i].userToken == data.token) {
+        for (var i = 0; i < session.length; i++) {
+            if (session[i].userToken == data.token) {
                 var preData = {
-                    id: setings.length + 1,
+                    id: dataArr.length + 1,
                     userID: data.id,
                     fontSize:data.fontSize,
                     color:data.color,
                     background:data.background
                 };
 
-                for (var j = 0; j < settings2.length; j++) {
+                for (var j = 0; j < dataArr2.length; j++) {
 
-                    if (settings2[j].userID == data.id) {
+                    if (dataArr2[j].userID == data.id) {
 
-                        settings2[j].fontSize = data.fontSize;
-                        settings2[j].color = data.color;
-                        settings2[j].background = data.background;
-                        writeData(setings2, setingsPath);
-                        setings = readData(setingsPath);
+                        dataArr2[j].fontSize = data.fontSize;
+                        dataArr2[j].color = data.color;
+                        dataArr2[j].background = data.background;
+                        writeData(dataArr2, setingsPath);
+                        dataArr = readData(setingsPath);
                         return {
                             success: true
                         };
                     }
                 }
-                settings2.push(preData);
-                writeData(settings2, setingsPath);
-                setings = readData(setingsPath);
+                dataArr2.push(preData);
+                writeData(dataArr2, setingsPath);
+                dataArr = readData(setingsPath);
 
                 return {
                     success: true
@@ -158,91 +180,35 @@ module.exports = (function (){
     };
 
     var logout = function (data) {
-        for (var i = 0; i < sessions.length; i++) {
-            if (sessions[i].userToken == data.token) {
-                sessions.splice(i, 1);
+        for (var i = 0; i < session.length; i++) {
+            if (session[i].userToken == data.token) {
+                session.splice(i, 1);
                 return true;
             }
         }
         return false;
     };
 
-    var prepareBook = function (book) {
-        return {
-            id      : books.length + 1,
-            book    : book
-        }
-    };
+    var saveBook = function (data) {
+        var id = books.length + 1;
+        var recordData = {
+            id: id,
+            name: data.name,
+            text: data.text,
+            user_id: data.user_id
+        };
 
-    var saveBook = function (book, userID) {
-
-        var preBook = prepareBook(book);
-        for(var i = 0; i < users.length; ++i) {
-
-            if (users[i].id == userID ) {
-                users[i].usersBooks.push(preBook.id);
-            }
-        }
-        books.push(preBook);
-        writeData(books, booksPath);
-        books = readData(booksPath);
-        writeData(users, userDataPath);
-        users = readData(userDataPath);
-    };
-
-    var searchBooks = function (id){
-        var userBooks = [];
-        for (var j = 0; j < books.length; j++) {
-            for (var i = 0; i < id.length; i++) {
-                if (books[j].id == id[i]) {
-                    userBooks.push(books[j].book);
-                }
-            }
-        }
-        return userBooks;
-    };
-
-    var showBooks = function (userID) {
-        var userBooks = [];
-        for(var i = 0; i < users.length; ++i) {
-
-            if (users[i].id == userID ) {
-                userBooks = searchBooks(users[i].usersBooks)
-            }
-        }
-        console.log('users[i].id = ' + users[i].id);
-        return userBooks;
-    };
-
-    var hasSession = function (token, executable) {
-       // console.log('executable - ' + executable);
-        console.log('token - ' + token);
-        var session = null;
-        for (var i = 0; i < sessions.length; ++i) {
-            if (sessions[i].userToken == token) {
-                session = sessions[i];
-            }
-        }
-        if (session) {
-            console.log('session = ' + session.userToken);
-            executable();
-        } else {
-            throw { status: 401 };
-        }
-    };
-
-    var checkUser = function (req, res, executable) {
-        // console.log('req - ' + req.headers);
-         console.log('req.headers.token - ' + req.headers.token);
         try {
-            hasSession(req.headers.token, function () {
-                res.send(executable());
-            });
-        } catch (error) {
-            logger.logError("Coudn't authorize user with token: " + req.headers.token);
-            console.log("Coudn't authorize user with token: " + req.headers.token);
-            res.statusCode = error.status;
-            res.send();
+            books.push(recordData);
+            writeData(books, booksPath);
+            books = readData(booksPath);
+            return {
+                success:true
+            };
+        } catch(e) {
+            return {
+                success:false
+            };
         }
     };
 
@@ -254,7 +220,7 @@ module.exports = (function (){
         postData:postData,
         logout:logout,
         saveBook:saveBook,
-        showBooks: showBooks,
-        checkUser: checkUser
+        list: list,
+        currentUserID: currentUserID
     }
 })();

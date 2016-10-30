@@ -1,6 +1,16 @@
 $(document).ready(function () {
-    window.bookApp = (function () {
     $("#user_login_here").text(sessionStorage.getItem('login'));
+
+   var userID = sessionStorage.getItem('user_id');
+    $.ajax('/userID', {
+        method: 'POST',
+        data: {
+            userID: userID
+        }
+    }).done(function (data) {
+
+    });
+
     window.App = {
         Models : {},
         Views : {},
@@ -35,18 +45,18 @@ $(document).ready(function () {
 
     $(document.body).append(testView.render().el);
 
+   
+
     $('#addBook').on('click',function (){
-        console.log('addBook works');
+            var user_id = sessionStorage.getItem('user_id');
             var name = $('#name').val();
             var text = $('#text').val();
-            console.log('name = ' + name);
-            console.log('text = ' + text);
             $.ajax('/saveBook', {
                 method: 'post',
-                beforeSend:window.bookApp.setHeader,
                 data: {
                     name: name,
-                    text: text
+                    text: text,
+                    user_id: user_id
                 }
             }).done(function (data) {
                 toastr.info('Книгу збережено');
@@ -55,8 +65,6 @@ $(document).ready(function () {
 
 
         $('#apply').on('click', function () {
-        console.log('apply works');
-        console.log('sessionStorage - ' + sessionStorage.getItem('login'));
         var fontSize = $( "#fontSize option:selected" ).val();
         testView.model.set({fontSize : fontSize});
         $(document.body).append(testView.render().el);
@@ -99,7 +107,6 @@ $(document).ready(function () {
         var color = testModel.color;
         testView.model.set({color : color});
         $(document.body).append(testView.render().el);
-        console.log(testModel.toJSON());
 
         var token = sessionStorage.getItem('token');
         var id = sessionStorage.getItem('user_id');
@@ -136,5 +143,5 @@ $(document).ready(function () {
         window.location.href = 'index.html';
 
     });
-    })();
+
 });
