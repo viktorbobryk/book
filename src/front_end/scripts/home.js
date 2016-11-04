@@ -63,6 +63,9 @@ $(document).ready(function () {
             });
         });
 
+    $('#showBook').click(function() {
+        location.reload();
+    });
 
         $('#apply').on('click', function () {
         var fontSize = $( "#fontSize option:selected" ).val();
