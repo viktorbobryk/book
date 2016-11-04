@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>book</title>
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    </head>
+<body>
+    <nav>
+         <div class="topnav">
+            <ul id="nav-mobile" class="nav nav-pills" >
+                <li><a class="btn btn-info btn-lg"  href="./home.html" id="reload">Reload</a></li>
+                <li><a class="btn btn-info btn-lg"  href="./home.html" id="home">Домашня</a></li>
+                <li><a class="btn btn-info btn-lg"  data-toggle="modal" data-target="#modal1" id="reg_btn">Реєстрація</a></li>
+                <li><a class="btn btn-info btn-lg"  data-toggle="modal" data-target="#modal2" id="log">Увійти</a></li>
+            </ul>
+         </div>
+    </nav>
+
+    <div class="modal fade" id="modal1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-4 pull-left">
+                                <h4 class="modal-title">Введіть дані</h4>
+
+                                <label for="login">Логін</label><input id="login" type="text" ><span id="l_valid"></span>
+
+                                <label for="password">Пароль</label><input id="password" type="password" ><span id="p_valid"></span>
+
+                                <label for="email">Email</label><input id="email" name="mail" type="text"><span id="e_valid"></span>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" value="Реєстрація" id="submit" disabled="true" class="btn btn-info btn-lg pull-left"  onclick="window.bookApp.registration()">
+                        <a href="#" class="btn btn-info btn-lg" data-dismiss="modal">Закрити вікно</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal2" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-4 pull-left">
+                                <h4 class="modal-title">Введіть дані</h4>
+                                <input id="login_user" type="text" class="validate">
+                                <label for="login_user">Логін</label>
+                                <input id="pw_user" type="text" class="validate">
+                                <label for="pw_user">Пароль</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-info btn-lg puii-left" onclick="window.bookApp.user()">Увійти</a>
+                        <a href="#" class="btn btn-info btn-lg" data-dismiss="modal">Закрити вікно</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h2>Почему научиться программировать так чертовски тяжело?</h2>
+            <p>
+                Квинси Ларсон был просто “офисным парнем в костюме”. Он решил научиться программировать. Начал спрашивать людей вокруг.
+                Изучил немного Руби, потом быстренько посмотрел на другие языки вроде Scala, Clojure и Go.
+                Он изучил Emacs, а потом Vim, а потом раскладку Dvorak. Он втыкал в Линукс, копался с Лиспом и кодил на Питоне, и жил при этом в командной строке больше полутора лет.
+            </p>
+            <p>
+                Его швыряло туда-сюда как листочек в торнадо. Каждый совет, который он слышал, тащил его то в одну, то в другую сторону,
+                до тех пор пока он не прошел “каждый онлайн-курс по программированию во вселенной”.В конце концов, не смотря на то, что он получил работу разработчика ПО, Квинси:
+            </p>
+            <p>
+                … был уверен, что на первый взгляд нормальные программисты, с которыми я общался, были на самом деле социопатами, которые получили,
+                а потом подавили в себе, травму при изучении программирования.
+            </p>
+            <p>
+                Oх. Звучит знакомо?
+            </p>
+            <p>
+
+            </p>
+            <ol>
+                <li>
+                    Медовый месяц это очень приятное, очень комфортное путешествие через огромное количество отполированных до блеска обучающих ресурсов, которые показывают,
+                    что на первый взгляд сложные штуки на самом деле совершенно понятны, особенно с такой интенсивной поддержкой.
+                    Вы грубо говоря изучаете базовый синтаксис, но ощущаете себя героем.
+                </li>
+
+                <li>
+                    Скала смятения это болезненное осознание реальной сложности после того, как помощник отпускает вашу руку. Оказывается, вы ничего не можете сделать сами.
+                    Главными испытаниями становится постоянная отладка кода. Непонятно какие вопросы задавать чтобы хотя бы начать двигаться в правильном направлении.
+                </li>
+
+                <li>
+                    Пустыня отчаяния это долгий и одинокий путь через бездорожье, где каждое новое направление кажется верным, но часто вы просто ходите кругами и голодаете по ресурсам,
+                    которые могли бы помочь.Остерегайтесь “миражей мании” как сирен пустыни! Они уведут вас в никуда.
+                </li>
+
+                <li>
+                    Подъем благоговения это та часть, где вы наконец находите путь через пустыню и начинаете понимать как создавать приложения.
+                    Ваш код все еще дырявый и хрупкий как карточный домик. Вера в себя растет потому что ваши сайты вроде как работают, вы изучили несколько важных паттернов,
+                    ваши друзья считают ваши интерфейсы крутыми, но вам страшно заглянуть под капот, и вы не знаете как делать production-ready код.
+                    Как отсюда построить мост к состоянию “готов к реальной работе”?
+                </li>
+            </ol>
+            <h3>Как дойти до конца живым</h3>
+            <p>
+                Путешествие кажется тяжёлым и это, честно говоря, не редкость. Важно понимать куда вы идёте, особенно если идёте в одиночку. Но вы не должны сдаваться.
+                Есть способы, которые помогут быстро обойти большинство встречающихся проблем.
+                Изучение кода редко даётся настолько просто, насколько некоторые делают вид, но это не так сложно, как кажется вам в периоды глубокого отчаяния.
+            </p>
+            <h3>Итак… Возможно ли это вообще?</h3>
+            <p>
+                Это все может звучать ошеломляюще, но я уверяю вас, что многие другие упорно шли к своей цели и выжили на этом пути.
+            </p>
+            <p>
+                Понимая что вас ждёт, вы уже находитесь в выгодном положении, осталось только составить четкий план и обеспечить доступ к подходящему виду поддержки.
+            </p>
+            <p>
+                Безусловно, объем данной статьи не позволяет исследовать каждую фазу так глубоко, как хотелось бы, а также предоставить вам должные практические советы и инструкции детально,
+                но, как было упомянуто выше, это путь с которым мы хорошо знакомы и над которым неистово трудимся, поэтому пытаемся вам помочь любым способом.
+            </p>
+            <p>
+                Удачи!
+            </p>
+        </div>
+    </div>
+<script type="text/template" id="styleTemplate">
+    body {
+    font-size: <%- fontSize %>;
+    color : <%- color %>;
+    background: <%- background %>;
+    }
+</script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
+<script type="text/javascript" src="scripts/index.js"></script>
+<script type="text/javascript" src="scripts/validation.js"></script>
+</body>
+</html>
