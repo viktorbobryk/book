@@ -1,9 +1,21 @@
-$(function () {
+$(document).ready(function () {
+    $("#user_login_here").text(sessionStorage.getItem('login'));
+
+   var userID = sessionStorage.getItem('user_id');
+    $.ajax('/userID', {
+        method: 'POST',
+        data: {
+            userID: userID
+        }
+    }).done(function (data) {
+
+    });
+
     window.App = {
         Models : {},
-        Views : {}
+        Views : {},
+        Collections: {}
     };
-
     window.template = function (id) {
         return _.template( $(id).html() );
     };
@@ -20,9 +32,9 @@ $(function () {
     App.Views.StyleView = Backbone.View.extend ({
         tagName : 'style',
 
-        template : template(styleTemplate),
+        template: template(styleTemplate),
 
-        render : function (){
+        render: function (){
             this.$el.html( this.template(this.model.toJSON()));
             return this;
         }
@@ -33,7 +45,29 @@ $(function () {
 
     $(document.body).append(testView.render().el);
 
-    $('#apply').on('click', function () {
+   
+
+    $('#addBook').on('click',function (){
+            var user_id = sessionStorage.getItem('user_id');
+            var name = $('#name').val();
+            var text = $('#text').val();
+            $.ajax('/saveBook', {
+                method: 'post',
+                data: {
+                    name: name,
+                    text: text,
+                    user_id: user_id
+                }
+            }).done(function (data) {
+                toastr.info('Книгу збережено');
+            });
+        });
+
+    $('#showBook').click(function() {
+        location.reload();
+    });
+
+        $('#apply').on('click', function () {
         var fontSize = $( "#fontSize option:selected" ).val();
         testView.model.set({fontSize : fontSize});
         $(document.body).append(testView.render().el);
@@ -45,7 +79,6 @@ $(function () {
         var color = $('#color').val();
         testView.model.set({color : color});
         $(document.body).append(testView.render().el);
-        console.log(testModel.toJSON());
 
         var token = sessionStorage.getItem('token');
         var id = sessionStorage.getItem('user_id');
@@ -77,7 +110,6 @@ $(function () {
         var color = testModel.color;
         testView.model.set({color : color});
         $(document.body).append(testView.render().el);
-        console.log(testModel.toJSON());
 
         var token = sessionStorage.getItem('token');
         var id = sessionStorage.getItem('user_id');
@@ -110,7 +142,9 @@ $(function () {
                 sessionStorage.removeItem('id');
             }
         });
+        $("#user_login_here").text(sessionStorage.getItem('login'));
         window.location.href = 'index.html';
+
     });
 
 });

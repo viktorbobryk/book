@@ -35,6 +35,18 @@ app.post('/logout', function (req, res) {
     res.send(bookApp.logout(req.body)) ;
 });
 
+app.post('/saveBook', function (req, res) {
+    res.send(bookApp.saveBook(req.body)) ;
+});
+
+app.post('/userID', function (req, res) {
+    res.send(bookApp.currentUserID(req.body)) ;
+});
+
+app.get('/list', function (req, res) {
+    res.send(bookApp.list(req.body)) ;
+});
+
 app.listen(3000, function () {
     console.log('book is listening on port 3000!');
 });

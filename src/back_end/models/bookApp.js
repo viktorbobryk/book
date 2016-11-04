@@ -4,7 +4,7 @@ var logger = require('./../services/logger.js');
 module.exports = (function () {
 
     var session = [];
-
+    var val;
     var readData = function (path) {
         try {
             var result = fs.readFileSync(path, 'utf8');
@@ -32,8 +32,30 @@ module.exports = (function () {
 
     var setingsPath = './data/settings.json';
     var userDataPath = './data/users.json';
+    var booksPath = './data/books.json';
     var dataArr = readData(setingsPath);
     var users = readData(userDataPath);
+    var books = readData(booksPath);
+
+    var currentUserID = function (data) {
+        for (var key in data) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
+                 val = data[key];
+            }
+        }
+        return val;
+    };
+
+    var list = function () {
+        var x = val;
+        var userBooks = [];
+        for(var i = 0; i < books.length; i++){
+            if(books[i].user_id === x) {
+                userBooks.push(books[i]);
+            }
+        }
+        return userBooks;
+    };
 
     var getSettings = function (id) {
         var result = {};
@@ -46,6 +68,7 @@ module.exports = (function () {
         return result;
     };
 
+    
     var registration = function (data) {
 
         var id = users.length + 1;
@@ -61,12 +84,11 @@ module.exports = (function () {
             writeData(users, userDataPath);
             users = readData(userDataPath);
             return {
-                succsess:true,
-                // message:'Registration successful !'
+                succsess:true
             };
         } catch(e) {
             return {
-                succsess:false,
+                succsess:false
             };
         }
     };
@@ -83,18 +105,21 @@ module.exports = (function () {
     var login = function (data) {
         for(var i = 0; i < users.length; ++i) {
             var result = {};
+            var login = data.login;
             if (data.login == users[i].login && data.pw == users[i].password) {
                 var token = generateToken();
                 session.push({
                     userToken : token,
-                    userName : users[i].login
+                    userName : users[i].login,
+                    userID : users[i].id
                 });
+
                 result = {
                     success : true,
                     userToken : token,
-                    id : users[i].id
+                    id : users[i].id,
+                    login : login
                 };
-
                 return result;
             } else {
                 result = {
@@ -136,7 +161,7 @@ module.exports = (function () {
                         writeData(dataArr2, setingsPath);
                         dataArr = readData(setingsPath);
                         return {
-                            success: true,
+                            success: true
                         };
                     }
                 }
@@ -145,12 +170,12 @@ module.exports = (function () {
                 dataArr = readData(setingsPath);
 
                 return {
-                    success: true,
+                    success: true
                 };
             }
         }
         return {
-            success: false,
+            success: false
         };
     };
 
@@ -164,13 +189,38 @@ module.exports = (function () {
         return false;
     };
 
+    var saveBook = function (data) {
+        var id = books.length + 1;
+        var recordData = {
+            id: id,
+            name: data.name,
+            text: data.text,
+            user_id: data.user_id
+        };
+
+        try {
+            books.push(recordData);
+            writeData(books, booksPath);
+            books = readData(booksPath);
+            return {
+                success:true
+            };
+        } catch(e) {
+            return {
+                success:false
+            };
+        }
+    };
+
     return {
         getSettings:getSettings,
         registration:registration,
         login:login,
         getData:getData,
         postData:postData,
-        logout:logout
-
+        logout:logout,
+        saveBook:saveBook,
+        list: list,
+        currentUserID: currentUserID
     }
 })();

@@ -11,7 +11,7 @@ $(document).ready(function(){
 });
 
 
-$(document).ready(function () {
+$(function () {
     window.bookApp = (function () {
 
         window.App = {
@@ -23,9 +23,7 @@ $(document).ready(function () {
             return _.template( $(id).html() );
         };
 
-     
-        var user = function () {
-
+         var login = function () {
             var user_login = $('#login_user').val();
             var user_pw = $('#pw_user').val();
             $.ajax('/login', {
@@ -36,11 +34,12 @@ $(document).ready(function () {
                 }
             }).done(function (data) {
                 if (data.success) {
+                    sessionStorage.setItem('login', data.login);
                     sessionStorage.setItem('token', data.userToken);
                     sessionStorage.setItem('user_id', data.id);
                     $('#reg_btn').hide();
                     $('#home').css('display','inline-block');
-                    loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id'));
+                    loadSettings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id'));
                     toastr.info('Ви успішно зайшли на свою сторінку');
                 }
                 else {
@@ -48,7 +47,7 @@ $(document).ready(function () {
                 }
             });
         };
-
+        
         var registration = function () {
                 var login = $('#login').val();
                 var password = $('#password').val();
@@ -65,8 +64,9 @@ $(document).ready(function () {
                     toastr.info('Ви успішно зареєструвались');
                 });
         };
+        
 
-        window.loadSetings = function (token, id) {
+        window.loadSettings = function (token, id) {
             $.ajax('/getData', {
                 method: 'post',
                 data: {
@@ -84,7 +84,7 @@ $(document).ready(function () {
             });
         };
 
-        $('#reload').on('click', loadSetings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id')));
+        $('#reload').on('click', loadSettings(sessionStorage.getItem('token'), sessionStorage.getItem('user_id')));
         
 
         App.Models.StyleModel = Backbone.Model.extend ({
@@ -108,9 +108,9 @@ $(document).ready(function () {
         });
 
         return {
-            user:user,
-            registration:registration,
-            loadSetings:loadSetings
+            login: login,
+            registration: registration,
+            loadSettings: loadSettings
         }
     })();
 });
